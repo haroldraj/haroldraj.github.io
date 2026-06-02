@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harold Razafindrakoto — Data & Backend Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05070a;
+  --s1:#090c10;
+  --s2:#0f1318;
+  --s3:#141920;
+  --border:rgba(255,255,255,0.055);
+  --border2:rgba(255,255,255,0.11);
+  --cyan:#00e5c8;
+  --cyan2:#00b09c;
+  --orange:#ff6b35;
+  --blue:#4488ff;
+  --text:#e8edf5;
+  --muted:#4a5568;
+  --muted2:#7a8699;
+  --r:8px;
+  --rl:14px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Space Mono',monospace;
+  font-weight:400;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CURSOR */
+.cur{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,background 0.2s;mix-blend-mode:exclusion}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,200,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.2s,height 0.2s,opacity 0.2s}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  border-bottom:1px solid var(--border);
+  background:rgba(5,7,10,0.85);
+  backdrop-filter:blur(20px);
+}
+.logo{
+  font-family:'Space Mono',monospace;
+  font-size:0.8rem;
+  color:var(--cyan);
+  text-decoration:none;
+  letter-spacing:0.08em;
+}
+.logo span{color:var(--muted2)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{
+  color:var(--muted2);text-decoration:none;
+  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{
+  background:var(--cyan);color:#000 !important;
+  padding:0.45rem 1.1rem;border-radius:var(--r);
+  font-size:0.62rem !important;letter-spacing:0.1em !important;
+  transition:background 0.2s !important;
+}
+.nav-cta:hover{background:var(--cyan2) !important;color:#000 !important}
+
+/* ═══════════════════════════════════ HERO */
+.hero{
+  min-height:100vh;display:grid;
+  grid-template-rows:1fr auto;
+  padding:8rem 3rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-canvas{
+  position:absolute;inset:0;pointer-events:none;
+  overflow:hidden;
+}
+/* data-grid bg */
+.hero-canvas::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,200,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,200,0.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+/* pipeline glow */
+.hero-canvas::after{
+  content:'';position:absolute;
+  top:-200px;right:-100px;
+  width:700px;height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(0,229,200,0.07) 0%,transparent 65%);
+}
+
+.hero-body{
+  display:grid;grid-template-columns:1fr 420px;
+  gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:rgba(0,229,200,0.07);border:1px solid rgba(0,229,200,0.18);
+  color:var(--cyan);font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;
+  padding:0.4rem 1rem;border-radius:2rem;margin-bottom:2rem;
+  animation:fadeUp 0.6s ease both;
+}
+.ping{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pingAnim 2s infinite}
+@keyframes pingAnim{0%,100%{box-shadow:0 0 0 0 rgba(0,229,200,0.5)}60%{box-shadow:0 0 0 9px rgba(0,229,200,0)}}
+
+.hero-h{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(3.2rem,7vw,6.5rem);
+  font-weight:800;line-height:0.95;letter-spacing:-0.04em;
+  margin-bottom:1.6rem;
+  animation:fadeUp 0.6s 0.1s ease both;
+}
+.hero-h .line2{
+  display:block;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-h .line3{display:block;color:var(--muted2);font-weight:300;font-style:italic;font-size:0.6em;letter-spacing:-0.01em;margin-top:0.4rem}
+
+.hero-desc{
+  font-size:0.78rem;color:var(--muted2);line-height:2;
+  max-width:480px;margin-bottom:2.5rem;
+  animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-desc strong{color:var(--text);font-weight:700}
+
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp 0.6s 0.3s ease both;
+}
+.btn-p{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--cyan);color:#000;
+  padding:0.8rem 1.8rem;border-radius:var(--r);
+  font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;
+  letter-spacing:0.05em;text-decoration:none;
+  transition:background 0.2s,transform 0.2s;
+}
+.btn-p:hover{background:var(--cyan2);transform:translateY(-2px)}
+.btn-g{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  border:1px solid var(--border2);color:var(--muted2);
+  padding:0.8rem 1.8rem;border-radius:var(--r);
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.05em;text-decoration:none;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-g:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* pipeline viz card */
+.pipeline-card{
+  background:var(--s1);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  padding:1.5rem;
+  animation:fadeUp 0.6s 0.2s ease both;
+  position:relative;overflow:hidden;
+}
+.pipeline-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+.pc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.pc-title{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted2)}
+.pc-status{display:flex;align-items:center;gap:0.4rem;font-size:0.6rem;color:#4ade80}
+.pc-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pingAnim 2s infinite}
+.pipeline-steps{display:flex;flex-direction:column;gap:0.5rem}
+.pipe-step{
+  display:flex;align-items:center;gap:0.8rem;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:var(--r);padding:0.75rem 1rem;
+  font-size:0.68rem;
+  transition:border-color 0.25s;
+}
+.pipe-step:hover{border-color:rgba(0,229,200,0.25)}
+.pipe-ico{font-size:1rem;width:30px;text-align:center;flex-shrink:0}
+.pipe-label{flex:1;color:var(--text)}
+.pipe-tag{
+  font-size:0.55rem;letter-spacing:0.1em;
+  padding:0.2rem 0.5rem;border-radius:3px;
+  border:1px solid var(--border);color:var(--muted2);
+}
+.pipe-tag.active{border-color:rgba(0,229,200,0.3);color:var(--cyan);background:rgba(0,229,200,0.06)}
+.pipe-connector{width:1px;height:16px;background:var(--border2);margin-left:2.3rem}
+
+/* hero bottom bar */
+.hero-bottom{
+  display:flex;align-items:center;gap:3rem;
+  padding-top:3rem;border-top:1px solid var(--border);
+  position:relative;z-index:1;
+  animation:fadeUp 0.6s 0.35s ease both;
+}
+.hstat{display:flex;flex-direction:column;gap:0.2rem}
+.hstat-num{font-family:'Bricolage Grotesque',sans-serif;font-size:1.8rem;font-weight:800;color:var(--text);line-height:1}
+.hstat-lbl{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+.hstat-sep{width:1px;height:40px;background:var(--border2)}
+
+/* ═══════════════════════════════════ MARQUEE */
+.marquee-wrap{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:0.9rem 0;overflow:hidden;
+  background:var(--s1);
+}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 26s linear infinite}
+.marquee-item{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);padding:0 1.8rem}
+.marquee-sep{color:var(--cyan);margin:0 0.3rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════ SECTION */
+.wrap{padding:7rem 3rem;max-width:1280px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:0.8rem;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.eyebrow::before{content:'//';color:var(--cyan)}
+.sec-h{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(2rem,4vw,3.4rem);font-weight:800;
+  letter-spacing:-0.03em;line-height:1.05;
+  margin-bottom:4rem;
+}
+.sec-h em{color:var(--cyan);font-style:normal}
+
+/* ═══════════════════════════════════ STACK */
+.stack-section{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.stack-block{
+  background:var(--s1);padding:2rem 1.5rem;
+  transition:background 0.25s;
+}
+.stack-block:hover{background:var(--s2)}
+.sb-icon{font-size:1.6rem;margin-bottom:1rem}
+.sb-cat{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:0.6rem}
+.sb-items{display:flex;flex-direction:column;gap:0.35rem}
+.sb-item{font-size:0.7rem;color:var(--muted2);line-height:1.5}
+.sb-item.main{color:var(--text);font-weight:700}
+
+/* ═══════════════════════════════════ PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.proj-card{
+  background:var(--bg);padding:2.5rem;
+  display:flex;flex-direction:column;
+  transition:background 0.3s;position:relative;overflow:hidden;
+  cursor:pointer;
+}
+.proj-card:hover{background:var(--s1)}
+.proj-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,229,200,0.04),transparent);
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+.proj-card:hover::after{opacity:1}
+
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem}
+.proj-ico{
+  width:52px;height:52px;border-radius:var(--r);
+  background:var(--s2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+}
+.proj-arrow{
+  width:34px;height:34px;border:1px solid var(--border2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted2);font-size:0.9rem;
+  transition:all 0.28s;
+}
+.proj-card:hover .proj-arrow{background:var(--cyan);border-color:var(--cyan);color:#000;transform:rotate(45deg)}
+
+.proj-num{font-size:0.6rem;letter-spacing:0.18em;color:var(--muted);margin-bottom:1rem}
+.proj-name{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:1.35rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.7rem;
+}
+.proj-desc{font-size:0.72rem;color:var(--muted2);line-height:1.9;flex-grow:1;margin-bottom:1.4rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.3rem}
+.ptag{
+  font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.28rem 0.65rem;border-radius:3px;
+  background:var(--s2);color:var(--muted2);border:1px solid var(--border);
+}
+.ptag.hl{border-color:rgba(0,229,200,0.25);color:var(--cyan);background:rgba(0,229,200,0.05)}
+.proj-status{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase}
+.sdot{width:5px;height:5px;border-radius:50%}
+.s-live{color:#4ade80}.s-live .sdot{background:#4ade80;box-shadow:0 0 5px #4ade80}
+.s-wip{color:var(--blue)}.s-wip .sdot{background:var(--blue)}
+.s-plan{color:var(--orange)}.s-plan .sdot{background:var(--orange)}
+.s-soon{color:var(--muted)}.s-soon .sdot{background:var(--muted)}
+
+.proj-add{
+  background:var(--bg);padding:2.5rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;min-height:300px;cursor:pointer;
+  transition:background 0.25s,border-color 0.25s;
+}
+.proj-add:hover{background:rgba(0,229,200,0.02)}
+.add-plus{
+  width:46px;height:46px;border:1px dashed var(--muted);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;color:var(--muted);transition:all 0.25s;
+}
+.proj-add:hover .add-plus{border-color:var(--cyan);color:var(--cyan)}
+.add-lbl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+
+/* ═══════════════════════════════════ ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-body{font-size:0.78rem;color:var(--muted2);line-height:2.1;margin-bottom:1.8rem}
+.about-body strong{color:var(--text);font-weight:700}
+.about-body code{
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  background:var(--s2);border:1px solid var(--border);
+  padding:0.1rem 0.45rem;border-radius:4px;color:var(--cyan);
+}
+.exp-list{display:flex;flex-direction:column}
+.exp-item{padding:1.4rem 0;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:0.35rem}
+.exp-top{display:flex;justify-content:space-between;align-items:baseline}
+.exp-role{font-family:'Bricolage Grotesque',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text)}
+.exp-yr{font-size:0.6rem;letter-spacing:0.1em;color:var(--muted)}
+.exp-where{font-size:0.68rem;color:var(--muted2)}
+.exp-tag{
+  display:inline-block;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.2rem 0.55rem;border-radius:2px;margin-top:0.2rem;
+  background:rgba(0,229,200,0.07);border:1px solid rgba(0,229,200,0.18);color:var(--cyan);
+  width:fit-content;
+}
+
+/* ═══════════════════════════════════ CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.contact-h{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(2.2rem,4.5vw,4rem);font-weight:800;
+  letter-spacing:-0.04em;line-height:1;margin-bottom:1.5rem;
+}
+.contact-h em{display:block;color:var(--cyan);font-style:italic}
+.contact-sub{font-size:0.75rem;color:var(--muted2);line-height:2;max-width:360px}
+.clinks{display:flex;flex-direction:column}
+.clink{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0;border-bottom:1px solid var(--border);
+  text-decoration:none;color:var(--text);transition:all 0.22s;
+}
+.clink:hover{color:var(--cyan)}
+.clink:hover .clink-arr{transform:rotate(45deg);color:var(--cyan)}
+.clink-left{display:flex;flex-direction:column;gap:0.25rem}
+.clink-type{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.clink-val{font-family:'Bricolage Grotesque',sans-serif;font-size:0.95rem;font-weight:700}
+.clink-arr{color:var(--muted2);transition:transform 0.22s,color 0.22s;font-size:1.1rem}
+
+/* ═══════════════════════════════════ FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:1.8rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.f-l{font-size:0.62rem;color:var(--muted);letter-spacing:0.08em}
+.f-l span{color:var(--cyan)}
+.f-r{display:flex;gap:1.5rem}
+.f-r a{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.f-r a:hover{color:var(--cyan)}
+
+/* ═══════════════════════════════════ UTILS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.on{opacity:1;transform:none}
+
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem}
+  .hero,.wrap{padding-left:1.5rem;padding-right:1.5rem}
+  .hero-body{grid-template-columns:1fr}
+  .pipeline-card{display:none}
+  .hero-bottom{gap:2rem}
+  .stack-grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+  .nav-links li:not(:last-child){display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="c"></div>
+<div class="cur-ring" id="cr"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">HR<span>.</span>dev</a>
+  <ul class="nav-links">
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Hire me</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="home">
+  <div class="hero-canvas"></div>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-badge"><span class="ping"></span> Open to backend &amp; data roles · Brussels, BE</div>
+      <h1 class="hero-h">
+        Harold<br>
+        <span class="line2">Razafindrakoto</span>
+        <span class="line3">Backend · Data Engineering · Data Science</span>
+      </h1>
+      <p class="hero-desc">
+        Building <strong>scalable data pipelines</strong> and <strong>high-throughput backend systems</strong> in Java &amp; Python. Fluent in <strong>event streaming</strong>, <strong>microservices</strong>, and the entire data lifecycle — from ingestion to insight.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-p">→ View projects</a>
+        <a href="#contact" class="btn-g">Get in touch</a>
+      </div>
+    </div>
+
+    <!-- Live pipeline card -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <span class="pc-title">// sample pipeline</span>
+        <span class="pc-status"><span class="pc-dot"></span> running</span>
+      </div>
+      <div class="pipeline-steps">
+        <div class="pipe-step">
+          <span class="pipe-ico">📡</span>
+          <span class="pipe-label">Kafka topic ingestion</span>
+          <span class="pipe-tag active">source</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-step">
+          <span class="pipe-ico">⚙️</span>
+          <span class="pipe-label">Spring Boot processor</span>
+          <span class="pipe-tag active">transform</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-step">
+          <span class="pipe-ico">🗄️</span>
+          <span class="pipe-label">PostgreSQL / MinIO sink</span>
+          <span class="pipe-tag active">store</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-step">
+          <span class="pipe-ico">📊</span>
+          <span class="pipe-label">Analytics &amp; dashboards</span>
+          <span class="pipe-tag">serve</span>
+        </div>
+        <div class="pipe-connector"></div>
+        <div class="pipe-step">
+          <span class="pipe-ico">🤖</span>
+          <span class="pipe-label">ML model inference</span>
+          <span class="pipe-tag">predict</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hstat"><div class="hstat-num">2+</div><div class="hstat-lbl">Yrs experience</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">3</div><div class="hstat-lbl">Projects shipped</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">5+</div><div class="hstat-lbl">Tools mastered</div></div>
+    <div class="hstat-sep"></div>
+    <div class="hstat"><div class="hstat-num">∞</div><div class="hstat-lbl">GB data processed</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Java 17+ <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Apache Kafka <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Python <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Spring Boot <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Docker <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Pandas / NumPy <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Scikit-learn <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">REST API <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">MinIO <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">GitHub Actions <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hexagonal Arch <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Java 17+ <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Apache Kafka <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Python <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Spring Boot <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Docker <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Pandas / NumPy <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Scikit-learn <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">REST API <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">MinIO <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">GitHub Actions <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hexagonal Arch <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ═══════ STACK ═══════ -->
+<section class="stack-section" id="stack">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="eyebrow reveal">Technical stack</div>
+    <h2 class="sec-h reveal">What I <em>build with</em></h2>
+  </div>
+  <div class="stack-grid reveal">
+    <div class="stack-block">
+      <div class="sb-icon">☕</div>
+      <div class="sb-cat">Backend Core</div>
+      <div class="sb-items">
+        <span class="sb-item main">Java 17+ / Spring Boot</span>
+        <span class="sb-item">Hexagonal Architecture</span>
+        <span class="sb-item">REST APIs / OAuth2</span>
+        <span class="sb-item">MapStruct / JUnit</span>
+        <span class="sb-item">Maven / Gradle</span>
+      </div>
+    </div>
+    <div class="stack-block">
+      <div class="sb-icon">🌊</div>
+      <div class="sb-cat">Data Engineering</div>
+      <div class="sb-items">
+        <span class="sb-item main">Apache Kafka</span>
+        <span class="sb-item">ETL Pipelines</span>
+        <span class="sb-item">PostgreSQL / MinIO</span>
+        <span class="sb-item">Docker / GitHub Actions</span>
+        <span class="sb-item">Event-driven systems</span>
+      </div>
+    </div>
+    <div class="stack-block">
+      <div class="sb-icon">🐍</div>
+      <div class="sb-cat">Data Science</div>
+      <div class="sb-items">
+        <span class="sb-item main">Python · Pandas · NumPy</span>
+        <span class="sb-item">Scikit-learn (basics)</span>
+        <span class="sb-item">Data visualisation</span>
+        <span class="sb-item">Statistical analysis</span>
+        <span class="sb-item">Chart.js / Matplotlib</span>
+      </div>
+    </div>
+    <div class="stack-block">
+      <div class="sb-icon">🏗️</div>
+      <div class="sb-cat">Infra &amp; DevOps</div>
+      <div class="sb-items">
+        <span class="sb-item main">Docker / Compose</span>
+        <span class="sb-item">CI/CD · GitHub Actions</span>
+        <span class="sb-item">Object storage (MinIO)</span>
+        <span class="sb-item">Microservices patterns</span>
+        <span class="sb-item">Security scanning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROJECTS ═══════ -->
+<div style="border-top:1px solid var(--border)">
+  <div class="wrap" id="projects" style="padding-bottom:2rem">
+    <div class="eyebrow reveal">Selected work</div>
+    <h2 class="sec-h reveal">Projects &amp; <em>pipelines</em></h2>
+  </div>
+  <div class="proj-grid reveal">
+
+    <!-- Order & Pay -->
+    <div class="proj-card">
+      <div class="proj-num">// 01</div>
+      <div class="proj-top">
+        <div class="proj-ico">🛒</div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-name">Order &amp; Pay</div>
+      <p class="proj-desc">Event-driven microservices ordering platform. Kafka handles inter-service messaging; GitHub Actions automates builds and an AI-powered PR review bot keeps code quality high.</p>
+      <div class="proj-tags">
+        <span class="ptag hl">Kafka</span>
+        <span class="ptag hl">Spring Boot</span>
+        <span class="ptag">Docker</span>
+        <span class="ptag">GH Actions</span>
+        <span class="ptag">Hexagonal</span>
+      </div>
+      <div class="proj-status s-wip"><span class="sdot"></span> In progress</div>
+    </div>
+
+    <!-- HostIt -->
+    <div class="proj-card">
+      <div class="proj-num">// 02</div>
+      <div class="proj-top">
+        <div class="proj-ico">🗄️</div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-name">HostIt</div>
+      <p class="proj-desc">Self-hosted object storage service built on MinIO. Exposes clean REST endpoints for upload/download workflows with JWT auth middleware and structured audit logging.</p>
+      <div class="proj-tags">
+        <span class="ptag hl">MinIO</span>
+        <span class="ptag hl">Spring Boot</span>
+        <span class="ptag">Docker</span>
+        <span class="ptag">REST API</span>
+        <span class="ptag">JWT</span>
+      </div>
+      <div class="proj-status s-wip"><span class="sdot"></span> In progress</div>
+    </div>
+
+    <!-- Plannergy -->
+    <div class="proj-card">
+      <div class="proj-num">// 03</div>
+      <div class="proj-top">
+        <div class="proj-ico">⚡</div>
+        <div class="proj-arrow">↗</div>
+      </div>
+      <div class="proj-name">Plannergy</div>
+      <p class="proj-desc">AI-powered energy analytics dashboard for industrial manufacturers. Aggregates sensor data, applies predictive models, and visualises consumption trends for Luminus stakeholders.</p>
+      <div class="proj-tags">
+        <span class="ptag hl">Data Analytics</span>
+        <span class="ptag hl">AI/ML</span>
+        <span class="ptag">Chart.js</span>
+        <span class="ptag">Tailwind</span>
+      </div>
+      <div class="proj-status s-live"><span class="sdot"></span> Pitched</div>
+    </div>
+
+    <!-- Coming soon -->
+    <div class="proj-card" style="opacity:0.65;cursor:default">
+      <div class="proj-num">// 04</div>
+      <div class="proj-top">
+        <div class="proj-ico" style="opacity:0.4">📦</div>
+      </div>
+      <div class="proj-name" style="color:var(--muted2)">Data pipeline project</div>
+      <p class="proj-desc">End-to-end batch + streaming pipeline — ingestion, transformation, storage, and analytical layer. Coming soon.</p>
+      <div class="proj-tags">
+        <span class="ptag">Python</span>
+        <span class="ptag">Kafka</span>
+        <span class="ptag">ETL</span>
+      </div>
+      <div class="proj-status s-plan"><span class="sdot"></span> Planned</div>
+    </div>
+
+    <div class="proj-add">
+      <div class="add-plus">+</div>
+      <span class="add-lbl">Your next project here</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<div class="wrap" id="about">
+  <div class="eyebrow reveal">Background</div>
+  <h2 class="sec-h reveal">The engineer<br>behind the <em>data</em></h2>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-body">
+        I'm a <strong>junior backend &amp; data engineer</strong> based in Brussels. My core stack is <code>Java 17+</code> with Spring Boot, shaped by a six-month internship at <strong>FPS Finance</strong> where I built production microservices using hexagonal architecture.
+      </p>
+      <p class="about-body">
+        On the data side, I work with <code>Apache Kafka</code> for event streaming, design ETL pipelines, and apply <code>Python</code> for analytics and basic ML modelling. I'm currently sharpening those skills through the <strong>Java@FIN program</strong> at Switchfully / Egov Select.
+      </p>
+      <p class="about-body">
+        Beyond the terminal, I've pitched an AI analytics product to <strong>Luminus</strong>, explored geopolitical data modelling, and built karaoke tools — proof that curiosity drives better engineering.
+      </p>
+    </div>
+    <div class="exp-list reveal">
+      <div class="exp-item">
+        <div class="exp-top">
+          <span class="exp-role">Backend Intern — Microservices</span>
+          <span class="exp-yr">2024</span>
+        </div>
+        <span class="exp-where">FPS Finance · Brussels</span>
+        <span class="exp-tag">Java · Spring Boot · Hexagonal</span>
+      </div>
+      <div class="exp-item">
+        <div class="exp-top">
+          <span class="exp-role">Java@FIN Developer Program</span>
+          <span class="exp-yr">2025 →</span>
+        </div>
+        <span class="exp-where">Switchfully / Egov Select</span>
+        <span class="exp-tag">Backend · Architecture · CI/CD</span>
+      </div>
+      <div class="exp-item">
+        <div class="exp-top">
+          <span class="exp-role">Data Product — Plannergy</span>
+          <span class="exp-yr">2024</span>
+        </div>
+        <span class="exp-where">Luminus Startup Initiative</span>
+        <span class="exp-tag">AI Analytics · Energy Data</span>
+      </div>
+      <div class="exp-item">
+        <div class="exp-top">
+          <span class="exp-role">M.Sc. Information Systems</span>
+          <span class="exp-yr">2023</span>
+        </div>
+        <span class="exp-where">École-IT Brussels</span>
+        <span class="exp-tag">Architecture · Systems Design</span>
+      </div>
+      <div class="exp-item">
+        <div class="exp-top">
+          <span class="exp-role">B.Sc. Electronics &amp; Computer Systems</span>
+          <span class="exp-yr">2021</span>
+        </div>
+        <span class="exp-where">ISPM Madagascar</span>
+        <span class="exp-tag">Foundations · Hardware · Code</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CONTACT ═══════ -->
+<div style="border-top:1px solid var(--border)">
+  <div class="wrap" id="contact">
+    <div class="eyebrow reveal">Contact</div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <h2 class="contact-h">Let's build<em>something.</em></h2>
+        <p class="contact-sub">Open to backend engineering, data engineering, and data-adjacent roles. Also happy to talk pipelines, architecture, or just grab a virtual coffee.</p>
+      </div>
+      <div class="clinks reveal">
+        <a href="mailto:harold@example.com" class="clink">
+          <div class="clink-left">
+            <span class="clink-type">Email</span>
+            <span class="clink-val">harold@example.com</span>
+          </div>
+          <span class="clink-arr">↗</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="clink">
+          <div class="clink-left">
+            <span class="clink-type">LinkedIn</span>
+            <span class="clink-val">Harold Razafindrakoto</span>
+          </div>
+          <span class="clink-arr">↗</span>
+        </a>
+        <a href="https://github.com" target="_blank" class="clink">
+          <div class="clink-left">
+            <span class="clink-type">GitHub</span>
+            <span class="clink-val">github.com/harold</span>
+          </div>
+          <span class="clink-arr">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="f-l">Harold Razafindrakoto <span>✦</span> Brussels 🇧🇪 <span>✦</span> 2025</span>
+  <div class="f-r">
+    <a href="#home">Top</a>
+    <a href="#stack">Stack</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const c=document.getElementById('c'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.13;ry+=(my-ry)*0.13;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.proj-card,.proj-add,.nav-cta').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c.style.transform='translate(-50%,-50%) scale(3)';cr.style.opacity='0'});
+  el.addEventListener('mouseleave',()=>{c.style.transform='translate(-50%,-50%) scale(1)';cr.style.opacity='1'});
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);obs.unobserve(e.target)}});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
